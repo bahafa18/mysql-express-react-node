@@ -1,0 +1,24 @@
+###
+GET http://localhost:3100/substations
+
+###
+POST http://localhost:3100/substations
+Content-Type: application/json
+
+{
+    "name": "GI OTAM"
+}
+
+###
+GET http://localhost:3100/substations/2
+
+###
+PATCH http://localhost:3100/substations/2
+Content-Type: application/json
+
+{
+    "name": "GI RANOMUUT"
+}
+
+###
+DELETE http://localhost:3100/substations/2

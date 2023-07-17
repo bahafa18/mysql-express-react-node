@@ -1,0 +1,45 @@
+@import "../../styles/variables.scss";
+@import "../../styles/responsive.scss";
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid $soft-bg;
+  }
+
+  .listMenus {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .menuLink {
+      border-radius: 5px;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      &:hover {
+        background-color: $soft-bg;
+      }
+
+      .menuIcon {
+        color: white;
+      }
+
+      .menuName {
+        // font-size: 20px;
+        // font-weight: 200;
+        @include lg {
+          display: none;
+        }
+      }
+    }
+  }
+}

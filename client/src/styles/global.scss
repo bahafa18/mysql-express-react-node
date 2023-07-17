@@ -1,0 +1,38 @@
+@import "./variables.scss";
+@import "./responsive.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.main {
+  font-family: "Inter", sans-serif;
+  color: $main-color;
+  display: flex;
+
+  .menuContainer {
+    width: 250px;
+    height: 100vh;
+    border-right: 2px solid $soft-bg;
+    background-color: #343a40;
+    @include lg {
+      width: max-content;
+    }
+  }
+
+  .container {
+    width: 100%;
+
+    .pageContainer {
+      padding: 5px 20px;
+      background-color: $dark-grey-bg;
+    }
+  }
+}
