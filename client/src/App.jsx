@@ -8,8 +8,8 @@ import Reports from "./pages/reports/Reports";
 import Users from "./pages/users/Users";
 import Analytics from "./pages/analytics/Analytics";
 import History from "./pages/history/History";
-// import Assets from "./pages/assets/Assets";
 import Substations from "./pages/assets/substations/Substations";
+import Feeders from "./pages/assets/feeders/Feeders";
 
 const App = () => {
   console.log("reload");
@@ -61,6 +61,10 @@ const App = () => {
             {
               path: "/assets/substations",
               element: <Substations />,
+            },
+            {
+              path: "/assets/feeders",
+              element: <Feeders />,
             },
           ],
         },
