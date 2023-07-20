@@ -1,15 +1,15 @@
-const FeedersAction = (props) => {
+const KeypointsAction = (props) => {
   return (
     <div className="action">
       <form action="" onSubmit={props.handleSubmit}>
-        <label htmlFor="feeder">Feeder Name</label>
+        <label htmlFor="keypoint">keypoint Name</label>
         <input
           type="text"
-          id="feeder"
-          value={props.feeder}
-          placeholder="masukkan feeder ..."
+          id="keypoint"
+          value={props.keypoint}
+          placeholder="masukkan keypoint ..."
           onChange={(e) => {
-            props.setFeeder(e.target.value);
+            props.setKeypoint(e.target.value);
           }}
         ></input>
         <select
@@ -20,12 +20,13 @@ const FeedersAction = (props) => {
               ? "placeholder"
               : props.selectSubstation
           }
-          // defaultValue={"placeholder"}
           onChange={(e) => {
             if (e.target.value == "placeholder") {
               props.setSelectSubstation(null);
             } else {
               props.setSelectSubstation(e.target.value);
+              props.getSubstationsChildren(e.target.value);
+              props.setSelectFeeder(null);
             }
           }}
         >
@@ -38,24 +39,26 @@ const FeedersAction = (props) => {
             );
           })}
         </select>
+
         <select
-          name="dcc"
-          id="dcc"
-          value={props.selectDcc == null ? "placeholder" : props.selectDcc}
-          // defaultValue={"placeholder"}
+          name="feeder"
+          id="feeder"
+          value={
+            props.selectFeeder == null ? "placeholder" : props.selectFeeder
+          }
           onChange={(e) => {
             if (e.target.value == "placeholder") {
-              props.setSelectDcc(null);
+              props.setSelectFeeder(null);
             } else {
-              props.setSelectDcc(e.target.value);
+              props.setSelectFeeder(e.target.value);
             }
           }}
         >
-          <option value="placeholder">Pilih DCC ...</option>
-          {props.dccs.map((dcc) => {
+          <option value="placeholder">Pilih Feeder ...</option>
+          {props.feeders.map((feeder) => {
             return (
-              <option value={dcc.id} key={dcc.id}>
-                {dcc.name}
+              <option value={feeder.id} key={feeder.id}>
+                {feeder.name}
               </option>
             );
           })}
@@ -66,4 +69,4 @@ const FeedersAction = (props) => {
   );
 };
 
-export default FeedersAction;
+export default KeypointsAction;

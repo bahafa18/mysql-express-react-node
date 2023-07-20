@@ -1,4 +1,5 @@
-import Substations from "../models/Substations_m.js";
+// import Substations from "../models/Substations_m.js";
+import { Substations, Feeders } from "../models/Models.js";
 
 export const getSubstations = async (req, res) => {
   try {
@@ -12,6 +13,7 @@ export const getSubstations = async (req, res) => {
 export const getSubstationById = async (req, res) => {
   try {
     const response = await Substations.findOne({
+      include: Feeders,
       where: {
         id: req.params.id,
       },

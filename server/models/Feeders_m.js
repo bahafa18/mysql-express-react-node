@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
 
-const { DataTypes } = Sequelize;
+const { DataTypes, QueryTypes } = Sequelize;
 
 export const Feeders = db.define(
   "feeders",
@@ -25,7 +25,8 @@ export const Feeders = db.define(
 );
 
 export const Feeders_v = db.query(
-  "SELECT a.*, b.name as substation, c.name as dcc FROM feeders a LEFT JOIN substations b ON b.id = a.id_substation LEFT JOIN dcc c ON c.id = a.id_dcc"
+  "SELECT a.*, b.name as substation, c.name as dcc FROM feeders a LEFT JOIN substations b ON b.id = a.id_substation LEFT JOIN dcc c ON c.id = a.id_dcc",
+  { type: QueryTypes.SELECT }
 );
 
 // export default Feeders;

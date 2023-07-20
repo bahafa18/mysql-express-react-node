@@ -28,3 +28,15 @@ GET http://localhost:3100/dcc
 
 ###
 GET http://localhost:3100/feeders
+
+###
+GET http://localhost:3100/keypoints
+
+###
+POST http://localhost:3100/keypoints
+Content-Type: application/json
+
+{
+    "name": "LBS POMPA GPI", 
+    "feederId": "1"
+}

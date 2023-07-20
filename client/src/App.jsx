@@ -10,9 +10,9 @@ import Analytics from "./pages/analytics/Analytics";
 import History from "./pages/history/History";
 import Substations from "./pages/assets/substations/Substations";
 import Feeders from "./pages/assets/feeders/Feeders";
+import Keypoints from "./pages/assets/keypoints/Keypoints";
 
 const App = () => {
-  console.log("reload");
   const Layout = () => {
     return (
       <div className="main">
@@ -65,6 +65,10 @@ const App = () => {
             {
               path: "/assets/feeders",
               element: <Feeders />,
+            },
+            {
+              path: "/assets/keypoints",
+              element: <Keypoints />,
             },
           ],
         },

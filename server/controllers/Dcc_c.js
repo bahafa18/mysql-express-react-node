@@ -1,4 +1,5 @@
-import Dcc from "../models/Dcc_m.js";
+// import Dcc from "../models/Dcc_m.js";
+import { Dcc } from "../models/Models.js";
 
 export const getDcc = async (req, res) => {
   try {

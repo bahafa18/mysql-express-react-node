@@ -9,10 +9,10 @@ const Feeders = () => {
   const [action, setAction] = useState("Add");
   const [feeder, setFeeder] = useState("");
   const [getId, setId] = useState("");
-  const [dcc, setDcc] = useState([]);
+  const [dccs, setDccs] = useState([]);
   const [substations, setSubstations] = useState([]);
-  const [selectDcc, setSelectDcc] = useState("");
-  const [selectSubstation, setSelectSubstation] = useState("");
+  const [selectDcc, setSelectDcc] = useState(null);
+  const [selectSubstation, setSelectSubstation] = useState(null);
 
   useEffect(() => {
     getFeeders();
@@ -21,7 +21,6 @@ const Feeders = () => {
   const getFeeders = async () => {
     const response = await axios.get("http://localhost:3100/feeders");
     setFeeders(response.data);
-    console.log(response.data);
   };
 
   const getSubstations = async () => {
@@ -31,23 +30,33 @@ const Feeders = () => {
 
   const getDcc = async () => {
     const response = await axios.get("http://localhost:3100/dcc");
-    setDcc(response.data);
+    setDccs(response.data);
   };
 
   const handleSubmit = async (req, res) => {
     event.preventDefault();
     try {
       if (action == "Add") {
-        await axios.post("http://localhost:3100/feeders", {
-          name: feeder,
-          id_substation: selectSubstation,
-          id_dcc: selectDcc,
-        });
+        if (feeder != 0) {
+          const response = await axios.post("http://localhost:3100/feeders", {
+            name: feeder,
+            substationId: selectSubstation,
+            dccId: selectDcc,
+          });
+        } else {
+          alert("Nama feeder tidak boleh kosong !!");
+        }
       }
       if (action == "Edit") {
-        await axios.patch("http://localhost:3100/feeders/" + getId, {
-          name: feeder,
-        });
+        if (feeder != 0) {
+          await axios.patch("http://localhost:3100/feeders/" + getId, {
+            name: feeder,
+            substationId: selectSubstation,
+            dccId: selectDcc,
+          });
+        } else {
+          alert("Nama feeder tidak boleh kosong !!");
+        }
       }
 
       if (action == "Delete") {
@@ -56,35 +65,39 @@ const Feeders = () => {
       getFeeders();
       setFeeder("");
       setId("");
+      setSelectSubstation(null);
+      setSelectDcc(null);
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <>
-      <div className="substations">
-        <FeederList
-          data={feeders}
-          setAction={setAction}
-          setId={setId}
-          setFeeder={setFeeder}
-          getSubstations={getSubstations}
-          getDcc={getDcc}
-        />
+    <div className="feeders">
+      <FeederList
+        data={feeders}
+        setAction={setAction}
+        setId={setId}
+        setFeeder={setFeeder}
+        getSubstations={getSubstations}
+        getDcc={getDcc}
+        setSelectDcc={setSelectDcc}
+        setSelectSubstation={setSelectSubstation}
+      />
 
-        <FeedersAction
-          action={action}
-          handleSubmit={handleSubmit}
-          feeder={feeder}
-          dcc={dcc}
-          substations={substations}
-          setFeeder={setFeeder}
-          setSelectDcc={setSelectDcc}
-          setSelectSubstation={setSelectSubstation}
-        />
-      </div>
-    </>
+      <FeedersAction
+        action={action}
+        handleSubmit={handleSubmit}
+        feeder={feeder}
+        dccs={dccs}
+        substations={substations}
+        setFeeder={setFeeder}
+        setSelectDcc={setSelectDcc}
+        setSelectSubstation={setSelectSubstation}
+        selectSubstation={selectSubstation}
+        selectDcc={selectDcc}
+      />
+    </div>
   );
 };
 

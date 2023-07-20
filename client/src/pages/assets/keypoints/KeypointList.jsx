@@ -1,14 +1,13 @@
-const FeederList = (props) => {
+const KeypointList = (props) => {
   return (
     <div className="list">
       <button
         onClick={() => {
           props.setAction("Add");
-          props.setFeeder("");
+          props.setKeypoint("");
           props.getSubstations();
-          props.getDcc();
-          props.setSelectDcc("placeholder");
-          props.setSelectSubstation("placeholder");
+          props.setSelectSubstation(null);
+          props.setSelectFeeder(null);
         }}
       >
         Add
@@ -17,28 +16,27 @@ const FeederList = (props) => {
         <thead>
           <tr>
             <td>No</td>
+            <td>Nama Keypoint</td>
             <td>Nama Feeder</td>
-            <td>Gardu Induk</td>
-            <td>DCC</td>
+            <td>Nama Gardu Induk</td>
           </tr>
         </thead>
         <tbody>
-          {props.data.map((feeder, index) => {
+          {props.data.map((keypoint, index) => {
             let i = 0;
             return (
-              <tr key={feeder.id}>
+              <tr key={keypoint.id}>
                 <td>{index + 1}</td>
-                <td>{feeder.name}</td>
-                <td>{feeder.substation.name}</td>
-                <td>{feeder.dcc.name}</td>
+                <td>{keypoint.name}</td>
+                <td>{keypoint.feeder.name}</td>
+                <td>{keypoint.feeder.substation.name}</td>
                 <td>
                   <button
                     onClick={() => {
                       props.setAction("Edit");
-                      props.setId(feeder.id);
-                      props.setFeeder(feeder.name);
-                      props.setSelectSubstation(feeder.substation.id);
-                      props.setSelectDcc(feeder.dcc.id);
+                      props.setId(keypoint.id);
+                      props.setKeypoint(keypoint.name);
+                      props.setSelectSubstation(keypoint.feeders.id)
                     }}
                   >
                     Edit
@@ -48,10 +46,8 @@ const FeederList = (props) => {
                   <button
                     onClick={() => {
                       props.setAction("Delete");
-                      props.setId(feeder.id);
-                      props.setFeeder(feeder.name);
-                      props.setSelectSubstation(feeder.substation.id);
-                      props.setSelectDcc(feeder.dcc.id);
+                      props.setId(keypoint.id);
+                      props.setKeypoint(keypoint.name);
                     }}
                   >
                     Delete
@@ -66,4 +62,4 @@ const FeederList = (props) => {
   );
 };
 
-export default FeederList;
+export default KeypointList;

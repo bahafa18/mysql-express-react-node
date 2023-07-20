@@ -1,20 +1,12 @@
-import { Feeders, Feeders_v } from "../models/Feeders_m.js";
+// import { Feeders, Feeders_v } from "../models/Feeders_m.js";
+import { Substations, Dcc, Feeders } from "../models/Models.js";
 
 export const getFeeders = async (req, res) => {
   try {
-    const response = await Feeders.findAll();
+    const response = await Feeders.findAll({ include: [Substations, Dcc] });
     res.status(200).json(response);
   } catch (error) {
-    console.log(error.message);
-  }
-};
-
-export const getFeeders_v = async (req, res) => {
-  try {
-    const [result, metadata] = await Feeders_v;
-    res.status(200).json(result);
-  } catch (error) {
-    console.log(error.message);
+    res.status(400).json(error);
   }
 };
 
@@ -27,7 +19,20 @@ export const getFeederById = async (req, res) => {
     });
     res.status(200).json(response);
   } catch (error) {
-    console.log(error.message);
+    res.status(400).json(error);
+  }
+};
+
+export const getFeederByGi = async (req, res) => {
+  try {
+    const response = await Feeders.findAll({
+      where: {
+        substationId: req.params.gi,
+      },
+    });
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(400).json(error);
   }
 };
 
@@ -36,7 +41,7 @@ export const createFeeder = async (req, res) => {
     await Feeders.create(req.body);
     res.status(201).json({ msg: "Feeder Created" });
   } catch (error) {
-    console.log(error.message);
+    res.status(400).json(error);
   }
 };
 
@@ -49,7 +54,7 @@ export const updateFeeder = async (req, res) => {
     });
     res.status(200).json({ msg: "Feeder updated" });
   } catch (error) {
-    console.log(error.message);
+    res.status(400).json(error);
   }
 };
 
@@ -62,6 +67,6 @@ export const deleteFeeder = async (req, res) => {
     });
     res.status(200).json({ msg: "Feeder deleted" });
   } catch (error) {
-    console.log(error.message);
+    res.status(400).json(error);
   }
 };
