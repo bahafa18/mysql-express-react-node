@@ -1,2 +1,2 @@
 ###
-GET http://localhost:3100/substations/1
+GET http://localhost:3100/keypointS

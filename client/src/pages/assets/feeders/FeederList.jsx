@@ -39,6 +39,8 @@ const FeederList = (props) => {
                       props.setFeeder(feeder.name);
                       props.setSelectSubstation(feeder.substation.id);
                       props.setSelectDcc(feeder.dcc.id);
+                      props.getSubstations();
+                      props.getDcc();
                     }}
                   >
                     Edit

@@ -6,8 +6,10 @@ const KeypointList = (props) => {
           props.setAction("Add");
           props.setKeypoint("");
           props.getSubstations();
+          props.getKpTypes();
           props.setSelectSubstation(null);
           props.setSelectFeeder(null);
+          props.setSelectKpType(null);
         }}
       >
         Add
@@ -17,6 +19,7 @@ const KeypointList = (props) => {
           <tr>
             <td>No</td>
             <td>Nama Keypoint</td>
+            <td>Tipe</td>
             <td>Nama Feeder</td>
             <td>Nama Gardu Induk</td>
           </tr>
@@ -28,6 +31,7 @@ const KeypointList = (props) => {
               <tr key={keypoint.id}>
                 <td>{index + 1}</td>
                 <td>{keypoint.name}</td>
+                <td>{keypoint.keypointType.name}</td>
                 <td>{keypoint.feeder.name}</td>
                 <td>{keypoint.feeder.substation.name}</td>
                 <td>
@@ -36,7 +40,14 @@ const KeypointList = (props) => {
                       props.setAction("Edit");
                       props.setId(keypoint.id);
                       props.setKeypoint(keypoint.name);
-                      props.setSelectSubstation(keypoint.feeders.id)
+                      props.getSubstations();
+                      props.getKpTypes();
+                      props.getSubstationsChildren(
+                        keypoint.feeder.substation.id
+                      );
+                      props.setSelectSubstation(keypoint.feeder.substation.id);
+                      props.setSelectFeeder(keypoint.feeder.id);
+                      props.setSelectKpType(keypoint.keypointType.id);
                     }}
                   >
                     Edit

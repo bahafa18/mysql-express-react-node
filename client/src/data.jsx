@@ -5,43 +5,106 @@ import {
   History,
   Home,
   People,
+  TollOutlined,
 } from "@mui/icons-material";
 
 export const menus = [
   {
     id: 1,
-    path: "/",
-    title: "Dashboard",
-    icon: <Home fontSize="large" />,
+    title: "Main",
+    listItems: [
+      {
+        id: 1,
+        title: "Dashboard",
+        url: "/",
+        icon: <Home fontSize="large" />,
+      },
+    ],
   },
   {
     id: 2,
-    path: "/reports",
-    title: "Reports",
-    icon: <Campaign fontSize="large" />,
+    title: "Laporan",
+    listItems: [
+      {
+        id: 1,
+        title: "Laporan",
+        url: "/reports",
+        icon: <Campaign fontSize="large" />,
+      },
+    ],
   },
   {
     id: 3,
-    path: "/analytics",
-    title: "Analytics",
-    icon: <Analytics fontSize="large" />,
+    title: "Maintenance",
+    listItems: [
+      {
+        id: 1,
+        title: "Maintenance",
+        url: "/maintenance",
+        icon: <TollOutlined fontSize="large" />,
+      },
+    ],
   },
   {
     id: 4,
-    path: "/history",
-    title: "History",
-    icon: <History fontSize="large" />,
+    title: "Analytics",
+    listItems: [
+      {
+        id: 1,
+        title: "Analytics",
+        path: "/analytics",
+        icon: <Analytics fontSize="large" />,
+      },
+    ],
   },
   {
     id: 5,
-    path: "/assets",
-    title: "Assets",
-    icon: <Dataset fontSize="large" />,
+    title: "History",
+    listItems: [
+      {
+        id: 1,
+        title: "History",
+        path: "/history",
+        icon: <History fontSize="large" />,
+      },
+    ],
   },
   {
     id: 6,
+    title: "Assets",
+    listItems: [
+      {
+        id: 1,
+        path: "/assets/substations",
+        title: "Gardu Induk",
+        icon: <Dataset fontSize="large" />,
+      },
+      {
+        id: 2,
+        path: "/assets/feeders",
+        title: "Penyulang",
+        icon: <Dataset fontSize="large" />,
+      },
+      {
+        id: 3,
+        path: "/assets/keypoints",
+        title: "Keypoint",
+        icon: <Dataset fontSize="large" />,
+      },
+    ],
+  },
+  {
+    id: 7,
     path: "/users",
     title: "Users",
     icon: <People fontSize="large" />,
+    listItems: [
+      {
+        id: 1,
+        path: "/users",
+        title: "Users",
+        icon: <People fontSize="large" />,
+      },
+    ],
   },
 ];

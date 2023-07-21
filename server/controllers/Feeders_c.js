@@ -13,6 +13,7 @@ export const getFeeders = async (req, res) => {
 export const getFeederById = async (req, res) => {
   try {
     const response = await Feeders.findOne({
+      include: [Substations, Dcc],
       where: {
         id: req.params.id,
       },

@@ -9,15 +9,18 @@ const Menu = () => {
         <img src="" alt="" />
         <span>bahafa</span>
       </div>
-      <div className="listMenus">
-        {menus.map((menu) => {
-          return (
-            <Link to={menu.path} className="menuLink" key={menu.id}>
-              <span className="menuIcon">{menu.icon}</span>
-              <span className="menuName">{menu.title}</span>
-            </Link>
-          );
-        })}
+      <div className="menu">
+        {menus.map((item) => (
+          <div className="item" key={item.id}>
+            <span className="title">{item.title}</span>
+            {item.listItems.map((listItem) => (
+              <Link to={listItem.path} className="listItem" key={listItem.id}>
+                <span>{listItem.icon}</span>
+                <span className="listItemTitle">{listItem.title}</span>
+              </Link>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );

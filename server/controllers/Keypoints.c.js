@@ -1,4 +1,10 @@
-import { Dcc, Feeders, Keypoints, Substations } from "../models/Models.js";
+import {
+  Dcc,
+  Feeders,
+  KeypointTypes,
+  Keypoints,
+  Substations,
+} from "../models/Models.js";
 
 export const getKeypoints = async (req, res) => {
   try {
@@ -15,6 +21,9 @@ export const getKeypoints = async (req, res) => {
             },
           ],
         },
+        {
+          model: KeypointTypes,
+        },
       ],
     });
     res.status(200).json(response);
@@ -26,6 +35,25 @@ export const getKeypoints = async (req, res) => {
 export const getKeypointById = async (req, res) => {
   try {
     const response = await Keypoints.findOne({
+      include: [
+        {
+          model: Feeders,
+          include: [
+            {
+              model: Dcc,
+            },
+            {
+              model: Substations,
+            },
+            {
+              model: KeypointTypes,
+            },
+          ],
+        },
+        {
+          model: KeypointTypes,
+        },
+      ],
       where: {
         id: req.params.id,
       },
@@ -66,6 +94,15 @@ export const deleteKeypoint = async (req, res) => {
       },
     });
     res.status(200).json({ msg: "Keypoint deleted" });
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+export const getKeypointTypes = async (req, res) => {
+  try {
+    const response = await KeypointTypes.findAll();
+    res.status(200).json(response);
   } catch (error) {
     res.status(400).json(error);
   }

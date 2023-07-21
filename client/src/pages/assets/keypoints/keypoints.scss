@@ -1,3 +1,11 @@
 .keypoints {
   display: flex;
+
+  .keypointList {
+    border: 1px solid wheat;
+  }
+
+  .keypointAction {
+    border: 1px solid wheat;
+  }
 }

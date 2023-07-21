@@ -12,6 +12,31 @@ const KeypointsAction = (props) => {
             props.setKeypoint(e.target.value);
           }}
         ></input>
+
+        <select
+          name="kpType"
+          id="kpType"
+          value={
+            props.selectKpType == null ? "placeholder" : props.selectKpType
+          }
+          onChange={(e) => {
+            if (e.target.value == "placeholder") {
+              props.setSelectKpType(null);
+            } else {
+              props.setSelectKpType(e.target.value);
+            }
+          }}
+        >
+          <option value="placeholder">Pilih Tipe ...</option>
+          {props.kpTypes.map((kpType) => {
+            return (
+              <option value={kpType.id} key={kpType.id}>
+                {kpType.name}
+              </option>
+            );
+          })}
+        </select>
+
         <select
           name="substation"
           id="substation"

@@ -59,6 +59,20 @@ export const Keypoints = db.define(
   }
 );
 
+export const KeypointTypes = db.define(
+  "keypointTypes",
+  {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+  },
+  {
+    freezeTableName: true,
+  }
+);
+
 Substations.hasMany(Feeders, {
   foreignKey: { allowNull: false },
 });
@@ -73,6 +87,11 @@ Feeders.hasMany(Keypoints, {
   foreignKey: { allowNull: false },
 });
 Keypoints.belongsTo(Feeders);
+
+KeypointTypes.hasMany(Keypoints, {
+  foreignKey: { allowNull: false },
+});
+Keypoints.belongsTo(KeypointTypes);
 
 //Sync
 (async () => {

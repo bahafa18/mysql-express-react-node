@@ -6,12 +6,13 @@ import KeypointsAction from "./KeypointsAction";
 
 const Keypoints = () => {
   const [keypoints, setKeypoints] = useState([]);
+  const [kpTypes, setKpTypes] = useState([]);
   const [feeders, setFeeders] = useState([]);
   const [substations, setSubstations] = useState([]);
   const [action, setAction] = useState("Add");
   const [keypoint, setKeypoint] = useState("");
   const [getId, setId] = useState("");
-  const [getGiId, setGiId] = useState("");
+  const [selectKpType, setSelectKpType] = useState(null);
   const [selectFeeder, setSelectFeeder] = useState(null);
   const [selectSubstation, setSelectSubstation] = useState(null);
 
@@ -22,6 +23,11 @@ const Keypoints = () => {
   const getKeypoints = async () => {
     const response = await axios.get("http://localhost:3100/keypoints");
     setKeypoints(response.data);
+  };
+
+  const getKpTypes = async () => {
+    const response = await axios.get("http://localhost:3100/keypointTypes");
+    setKpTypes(response.data);
   };
 
   const getSubstationsChildren = async (gi) => {
@@ -38,10 +44,11 @@ const Keypoints = () => {
     event.preventDefault();
     try {
       if (action == "Add") {
-        if (keypoint != 0) {
+        if (keypoint != "") {
           const response = await axios.post("http://localhost:3100/keypoints", {
             name: keypoint,
             feederId: selectFeeder,
+            keypointTypeId: selectKpType,
           });
           console.log(response);
         } else {
@@ -49,25 +56,28 @@ const Keypoints = () => {
         }
       }
       if (action == "Edit") {
-        if (feeder != 0) {
-          await axios.patch("http://localhost:3100/feeders/" + getId, {
-            name: feeder,
-            substationId: selectSubstation,
-            dccId: selectDcc,
+        if (keypoint != "") {
+          await axios.patch("http://localhost:3100/keypoints/" + getId, {
+            name: keypoint,
+            feederId: selectFeeder,
+            keypointTypeId: selectKpType,
           });
+          console.log(response);
         } else {
-          alert("Nama feeder tidak boleh kosong !!");
+          alert("Nama keypoint tidak boleh kosong !!");
         }
       }
 
       if (action == "Delete") {
-        await axios.delete("http://localhost:3100/feeders/" + getId);
+        await axios.delete("http://localhost:3100/keypoints/" + getId);
+        console.log(response);
       }
       getKeypoints();
       setKeypoint("");
       setId("");
       setSelectSubstation(null);
       setSelectFeeder(null);
+      setSelectKpType(null);
     } catch (error) {
       console.log(error);
     }
@@ -75,30 +85,42 @@ const Keypoints = () => {
 
   return (
     <div className="keypoints">
-      <KeypointList
-        data={keypoints}
-        setAction={setAction}
-        setId={setId}
-        setKeypoint={setKeypoint}
-        getSubstations={getSubstations}
-        setSelectSubstation={setSelectSubstation}
-        setSelectFeeder={setSelectFeeder}
-      />
+      <div className="keypointList">
+        <KeypointList
+          data={keypoints}
+          setAction={setAction}
+          setId={setId}
+          setKeypoint={setKeypoint}
+          getSubstations={getSubstations}
+          getSubstationsChildren={getSubstationsChildren}
+          getKpTypes={getKpTypes}
+          setSelectSubstation={setSelectSubstation}
+          setSelectFeeder={setSelectFeeder}
+          setSelectKpType={setSelectKpType}
+        />
+      </div>
 
-      <KeypointsAction
-        handleSubmit={handleSubmit}
-        keypoint={keypoint}
-        setKeypoint={setKeypoint}
-        getSubstationsChildren={getSubstationsChildren}
-        getSubstations={getSubstations}
-        setSelectFeeder={setSelectFeeder}
-        setSelectSubstation={setSelectSubstation}
-        selectSubstation={selectSubstation}
-        selectFeeder={selectFeeder}
-        action={action}
-        substations={substations}
-        feeders={feeders}
-      />
+      <div className="keypointAction">
+        <KeypointsAction
+          className="keypointAction"
+          handleSubmit={handleSubmit}
+          keypoint={keypoint}
+          setKeypoint={setKeypoint}
+          getSubstationsChildren={getSubstationsChildren}
+          getSubstations={getSubstations}
+          getKpTypes={getKpTypes}
+          setSelectKpType={setSelectKpType}
+          setSelectFeeder={setSelectFeeder}
+          setSelectSubstation={setSelectSubstation}
+          selectSubstation={selectSubstation}
+          selectFeeder={selectFeeder}
+          selectKpType={selectKpType}
+          action={action}
+          substations={substations}
+          feeders={feeders}
+          kpTypes={kpTypes}
+        />
+      </div>
     </div>
   );
 };
